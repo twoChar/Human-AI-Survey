@@ -56,7 +56,7 @@ export default function Hero({ humanScore, aiScore, total }: HeroProps) {
             >
                 {/* The new high-res 3D Image */}
                 <Image
-                    src="/Human-AI-Survey/hero-face-3d.png"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero-face-3d.png`}
                     alt="Human vs AI"
                     fill
                     className={styles.faceImage}
