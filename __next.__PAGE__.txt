@@ -2,6 +2,6 @@
 2:I[49273,["/Human-AI-Survey/_next/static/chunks/ff1a16fafef87110.js","/Human-AI-Survey/_next/static/chunks/3d25c96c37af360e.js"],"default"]
 3:I[97367,["/Human-AI-Survey/_next/static/chunks/ff1a16fafef87110.js","/Human-AI-Survey/_next/static/chunks/7340adf74ff47ec0.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-:HL["/Human-AI-Survey/_next/static/chunks/ea6e5077fe115a74.css","style"]
-0:{"buildId":"npQ1IOAhcbt8D_BrRo_88","rsc":["$","$1","c",{"children":[["$","main",null,{"children":["$","$L2",null,{}]}],[["$","link","0",{"rel":"stylesheet","href":"/Human-AI-Survey/_next/static/chunks/ea6e5077fe115a74.css","precedence":"next"}],["$","script","script-0",{"src":"/Human-AI-Survey/_next/static/chunks/ff1a16fafef87110.js","async":true}],["$","script","script-1",{"src":"/Human-AI-Survey/_next/static/chunks/3d25c96c37af360e.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+:HL["/Human-AI-Survey/_next/static/chunks/2ca0cf8e72edb1c6.css","style"]
+0:{"buildId":"1DlQ63x_d15-30TrFFmbw","rsc":["$","$1","c",{"children":[["$","main",null,{"children":["$","$L2",null,{}]}],[["$","link","0",{"rel":"stylesheet","href":"/Human-AI-Survey/_next/static/chunks/2ca0cf8e72edb1c6.css","precedence":"next"}],["$","script","script-0",{"src":"/Human-AI-Survey/_next/static/chunks/ff1a16fafef87110.js","async":true}],["$","script","script-1",{"src":"/Human-AI-Survey/_next/static/chunks/3d25c96c37af360e.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
 5:null
