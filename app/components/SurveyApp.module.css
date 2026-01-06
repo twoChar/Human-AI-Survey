@@ -1,0 +1,327 @@
+/* Ambient Background */
+.ambientBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ambientOrbHuman {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.25), transparent 60%);
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: floatHuman 25s infinite alternate ease-in-out;
+}
+
+.ambientOrbAi {
+    position: absolute;
+    bottom: 20%;
+    /* Moved up to be behind glass */
+    right: -10%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent 60%);
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: floatAi 25s infinite alternate ease-in-out;
+}
+
+/* New: Bottom Glow to make Glass Pop */
+.bottomGlow {
+    position: absolute;
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.05), transparent 70%);
+    filter: blur(80px);
+    z-index: 1;
+}
+
+@keyframes floatHuman {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(10%, 10%) scale(1.1);
+    }
+}
+
+@keyframes floatAi {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(-10%, -10%) scale(1.1);
+    }
+}
+
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+/* Creative Patterns */
+.patternHuman {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    /* Warm, organic noise/grain texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    background-size: 300px 300px;
+    mix-blend-mode: soft-light;
+    mask-image: linear-gradient(to right, black, transparent);
+    -webkit-mask-image: linear-gradient(to right, black, transparent);
+}
+
+.patternAi {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    /* Cool, tech grid */
+    background-image:
+        linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    mask-image: linear-gradient(to left, black, transparent);
+    -webkit-mask-image: linear-gradient(to left, black, transparent);
+    transform: perspective(500px) rotateY(-5deg) scale(1.1);
+    /* Slight 3D depth for AI */
+    transform-origin: right center;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--background);
+    position: relative;
+    /* Ensure text is above background */
+    color: var(--text);
+}
+
+.heroSection {
+    flex: 55;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    padding: 2rem;
+    z-index: 10;
+}
+
+.controlsSection {
+    flex: 45;
+    position: relative;
+    z-index: 30;
+    min-height: 300px;
+
+    /* Premium Liquid Glass */
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+
+    /* Top "Light" Border */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 -20px 60px rgba(0, 0, 0, 0.5),
+        /* Depth shadow */
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    /* Inner highlighted edge */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.contentWrapper {
+    width: 100%;
+    max-width: 42rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.questionViewport {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+    align-items: center;
+    /* Center insight text */
+}
+
+/* Insight */
+.insightText {
+    font-size: 1.5rem;
+    color: var(--text-dim);
+    text-align: center;
+    font-weight: 300;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+/* Progress Area */
+/* Center the controls */
+.bottomNav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    /* Spacing between Reset, ArrowGroup, Submit */
+    width: 100%;
+    margin-top: 3rem;
+    position: relative;
+    max-width: 800px;
+}
+
+/* Group Arrows together */
+.navGroup {
+    display: flex;
+    gap: 1rem;
+    /* Space them out properly */
+    /* Removed pill styles (background, border, padding) so they are just circles */
+    align-items: center;
+}
+
+/* Standard Glass Buton Base */
+.bottomNavButton,
+.submitButton,
+.resetButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    /* Larger targets */
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+/* Hover Effects */
+.bottomNavButton:hover,
+.resetButton:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.bottomNavButton:active,
+.resetButton:active {
+    transform: scale(0.95);
+}
+
+.bottomNavButton:disabled {
+    opacity: 0.2;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Reset Specifics */
+.resetButton {
+    color: var(--text-dim);
+}
+
+.resetButton:hover {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Submit Specifics */
+.submitButton {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: var(--human);
+}
+
+.submitButton:hover {
+    background: var(--human);
+    /* Fill on hover */
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+    border-color: var(--human);
+}
+
+.progressContainer {
+    flex: 1;
+    /* Take central space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progressLabel {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.progressDots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.activeDot {
+    /* Handled by inline styles/motion now, but fallback here */
+    background-color: var(--text);
+}
+
+.resultWrapper {
+    width: 100%;
+}

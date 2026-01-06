@@ -1,0 +1,113 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+    width: 100%;
+
+    /* Glass Card Effect for Result */
+    /* background: rgba(255, 255, 255, 0.02); */
+    /* Optional: if we want a card within the panel */
+    /* Using the parent panel's glass mostly, but adding subtle depth here */
+    border-radius: 30px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.humanText {
+    color: var(--human);
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.aiText {
+    color: var(--robot);
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.hybridText {
+    background: linear-gradient(90deg, var(--human), var(--robot));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
+.actions {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.shareBtn {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.shareBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.restartBtn {
+    padding: 1rem 2rem;
+    background: var(--text);
+    color: var(--background);
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.restartBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .shareBtn,
+    .restartBtn {
+        width: 100%;
+    }
+}
