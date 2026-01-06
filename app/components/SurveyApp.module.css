@@ -153,7 +153,7 @@
     -webkit-backdrop-filter: blur(30px) saturate(180%);
 
     /* Top "Light" Border */
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid transparent;
     box-shadow:
         0 -20px 60px rgba(0, 0, 0, 0.5),
         /* Depth shadow */
@@ -253,7 +253,13 @@
 }
 
 .bottomNavButton:disabled {
-    opacity: 0.2;
+    opacity: 1;
+    /* Keep container fully opaque so background is visible */
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    /* Dim the icon instead */
     pointer-events: none;
     transform: none;
     box-shadow: none;
@@ -324,4 +330,38 @@
 
 .resultWrapper {
     width: 100%;
+}
+
+/* Start Button Overlay */
+.startOverlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.startButton {
+    pointer-events: auto;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1rem 3rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.startButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
 }

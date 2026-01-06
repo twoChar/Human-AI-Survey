@@ -10,6 +10,7 @@ interface Question {
 
 interface SurveyOptionsProps {
     question: Question;
+    userAnswer: 'human' | 'ai' | null;
     onAnswer: (type: 'human' | 'ai') => void;
 }
 
@@ -30,7 +31,36 @@ const variants = {
 
 const KEYWORDS = ["trust", "emotions", "art", "learns", "lead", "mistakes", "adapts", "teach", "diagnose", "shapes", "decides", "creates", "future"];
 
-export default function SurveyOptions({ question, onAnswer, direction }: SurveyOptionsProps & { direction: number }) {
+export default function SurveyOptions({ question, onAnswer, direction, userAnswer }: SurveyOptionsProps & { direction: number }) {
+
+    // Helper to get button style
+    const getButtonStyle = (type: 'human' | 'ai') => {
+        if (!userAnswer) return {}; // Default state
+
+        const isSelected = userAnswer === type;
+        const isCorrect = (question as any).correct === type;
+
+        // If this button is the Correct one
+        if (isCorrect) {
+            return {
+                borderColor: '#22c55e', // Green
+                background: 'rgba(34, 197, 94, 0.2)',
+                boxShadow: '0 0 30px rgba(34, 197, 94, 0.4)'
+            };
+        }
+
+        // If this button was Selected but is Wrong
+        if (isSelected && !isCorrect) {
+            return {
+                borderColor: '#ef4444', // Red
+                background: 'rgba(239, 68, 68, 0.2)',
+                color: '#ef4444'
+            };
+        }
+
+        // Unselected and Wrong (faded out)
+        return { opacity: 0.3, transform: 'scale(0.95)' };
+    };
 
     const renderTitle = (text: string) => {
         const words = text.split(" ");
@@ -53,9 +83,6 @@ export default function SurveyOptions({ question, onAnswer, direction }: SurveyO
                                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                                     style={{
                                         display: 'inline-block',
-                                        textDecoration: 'underline',
-                                        textDecorationColor: 'rgba(255,255,255,0.3)',
-                                        textUnderlineOffset: '4px'
                                     }}
                                 >
                                     {word}
@@ -88,20 +115,24 @@ export default function SurveyOptions({ question, onAnswer, direction }: SurveyO
             <div className={styles.buttons}>
                 <motion.button
                     className={`${styles.btn} ${styles.btnHuman}`}
-                    onClick={() => onAnswer('human')}
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px var(--human-glow)" }}
-                    whileTap={{ scale: 0.95 }}
+                    onClick={() => !userAnswer && onAnswer('human')}
+                    animate={getButtonStyle('human')}
+                    whileHover={!userAnswer ? { scale: 1.05, boxShadow: "0 0 20px var(--human-glow)" } : {}}
+                    whileTap={!userAnswer ? { scale: 0.95 } : {}}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    disabled={!!userAnswer}
                 >
                     Human
                 </motion.button>
 
                 <motion.button
                     className={`${styles.btn} ${styles.btnAi}`}
-                    onClick={() => onAnswer('ai')}
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px var(--robot-glow)" }}
-                    whileTap={{ scale: 0.95 }}
+                    onClick={() => !userAnswer && onAnswer('ai')}
+                    animate={getButtonStyle('ai')}
+                    whileHover={!userAnswer ? { scale: 1.05, boxShadow: "0 0 20px var(--robot-glow)" } : {}}
+                    whileTap={!userAnswer ? { scale: 0.95 } : {}}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    disabled={!!userAnswer}
                 >
                     AI
                 </motion.button>

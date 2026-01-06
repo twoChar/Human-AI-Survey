@@ -73,6 +73,7 @@ export default function Hero({ humanScore, aiScore, total }: HeroProps) {
                             animate={{ height: `${humanHeight}%` }}
                             transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.2 }}
                         />
+                        <div className={styles.blurSegment} />
                     </div>
                     <div className={styles.aiCol}>
                         <motion.div
@@ -81,6 +82,7 @@ export default function Hero({ humanScore, aiScore, total }: HeroProps) {
                             animate={{ height: `${aiHeight}%` }}
                             transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.2 }}
                         />
+                        <div className={styles.blurSegment} />
                     </div>
                 </div>
             </motion.div>
