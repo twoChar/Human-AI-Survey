@@ -1,4 +1,4 @@
 :HL["/Human-AI-Survey/_next/static/chunks/2c27dd24f1df100e.css","style"]
 :HL["/Human-AI-Survey/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/Human-AI-Survey/_next/static/chunks/2ca0cf8e72edb1c6.css","style"]
-0:{"buildId":"1DlQ63x_d15-30TrFFmbw","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+:HL["/Human-AI-Survey/_next/static/chunks/ce5e9fae8b323c43.css","style"]
+0:{"buildId":"GAvYiUdBgptQQDUmFTjVk","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
