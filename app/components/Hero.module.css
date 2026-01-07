@@ -11,17 +11,14 @@
 
 .innerContainer {
     position: relative;
-    /* Scale relative to container (which is 55% of screen) */
-    height: 95%;
-    width: auto;
+    /* Fit within parent but maintain aspect ratio */
+    width: 80%;
+    max-width: 500px;
+
     aspect-ratio: 1 / 1;
+    /* Center in flex parent */
+    margin: auto;
 
-    /* Cap max size */
-    max-width: 800px;
-    max-height: 800px;
-
-    /* Ensure it doesn't overflow width on narrow screens */
-    max-width: 95vw;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);

@@ -70,12 +70,10 @@ export default function SurveyApp() {
     let humanScoreRaw = 0;
     let aiScoreRaw = 0;
 
-    answers.forEach((ans, index) => {
-        if (!ans) return;
-        const q = QUESTIONS[index];
-        if (q.correct === 'human') {
+    answers.forEach((ans) => {
+        if (ans === 'human') {
             humanScoreRaw += 1;
-        } else {
+        } else if (ans === 'ai') {
             aiScoreRaw += 1;
         }
     });
@@ -196,6 +194,7 @@ export default function SurveyApp() {
                     humanScore={heroHumanScore}
                     aiScore={heroAiScore}
                     total={isResult && (humanScoreRaw + aiScoreRaw) > 0 ? (humanScoreRaw + aiScoreRaw) : heroTotal}
+                    winner={isResult ? (humanScoreRaw > aiScoreRaw ? 'human' : aiScoreRaw > humanScoreRaw ? 'ai' : null) : null}
                 />
             </div>
 

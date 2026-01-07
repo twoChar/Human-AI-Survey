@@ -1,16 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import styles from './Hero.module.css';
 
 interface HeroProps {
     humanScore: number;
     aiScore: number;
     total: number;
+    winner?: 'human' | 'ai' | null;
 }
 
-export default function Hero({ humanScore, aiScore, total }: HeroProps) {
+export default function Hero({ humanScore, aiScore, total, winner }: HeroProps) {
     // 3D Tilt Logic
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -26,7 +27,6 @@ export default function Hero({ humanScore, aiScore, total }: HeroProps) {
         const width = rect.width;
         const height = rect.height;
 
-        // Calculate normalized position (-0.5 to 0.5)
         const mouseXPos = (event.clientX - rect.left) / width - 0.5;
         const mouseYPos = (event.clientY - rect.top) / height - 0.5;
 
@@ -39,10 +39,8 @@ export default function Hero({ humanScore, aiScore, total }: HeroProps) {
         y.set(0);
     }
 
-    // Calculate fill percentage
-    // Ensure meaningful visual even at 0 (start dry)
-    const humanHeight = (humanScore / total) * 100;
-    const aiHeight = (aiScore / total) * 100;
+    const humanHeight = total > 0 ? (humanScore / total) * 100 : 0;
+    const aiHeight = total > 0 ? (aiScore / total) * 100 : 0;
 
     return (
         <div
@@ -54,37 +52,84 @@ export default function Hero({ humanScore, aiScore, total }: HeroProps) {
                 className={styles.innerContainer}
                 style={{ rotateX, rotateY }}
             >
-                {/* The new high-res 3D Image */}
-                <Image
-                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero-face-3d.png`}
-                    alt="Human vs AI"
-                    fill
-                    className={styles.faceImage}
-                    priority
-                />
+                {/* Base Split Image */}
+                <motion.div
+                    animate={{ opacity: winner ? 0 : 1 }}
+                    transition={{ duration: 1.5 }}
+                    style={{ position: 'relative', width: '100%', height: '100%' }}
+                >
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/hero-face-3d.png`}
+                        alt="Human vs AI"
+                        fill
+                        className={styles.faceImage}
+                        priority
+                    />
 
+                    {/* Fill Layers (Bars) - Fade out if winner decided */}
+                    <motion.div
+                        className={styles.fillLayer}
+                        animate={{ opacity: winner ? 0 : 1 }}
+                        transition={{ duration: 1 }}
+                    >
+                        <div className={styles.humanCol}>
+                            <motion.div
+                                className={styles.humanFill}
+                                initial={{ height: 0 }}
+                                animate={{ height: `${humanHeight}%` }}
+                                transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.2 }}
+                            />
+                            <div className={styles.blurSegment} />
+                        </div>
+                        <div className={styles.aiCol}>
+                            <motion.div
+                                className={styles.aiFill}
+                                initial={{ height: 0 }}
+                                animate={{ height: `${aiHeight}%` }}
+                                transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.2 }}
+                            />
+                            <div className={styles.blurSegment} />
+                        </div>
+                    </motion.div>
+                </motion.div>
 
-                {/* The fill overlay - now with liquid-like spring physics */}
-                <div className={styles.fillLayer}>
-                    <div className={styles.humanCol}>
+                {/* Winner Reveal Overlays */}
+                <AnimatePresence>
+                    {winner === 'human' && (
                         <motion.div
-                            className={styles.humanFill}
-                            initial={{ height: 0 }}
-                            animate={{ height: `${humanHeight}%` }}
-                            transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.2 }}
-                        />
-                        <div className={styles.blurSegment} />
-                    </div>
-                    <div className={styles.aiCol}>
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 3, ease: "easeInOut" }}
+                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 50 }}
+                        >
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/human-winner.png`}
+                                alt="Human Winner"
+                                fill
+                                className={styles.faceImage}
+                                priority
+                            />
+                        </motion.div>
+                    )}
+                    {winner === 'ai' && (
                         <motion.div
-                            className={styles.aiFill}
-                            initial={{ height: 0 }}
-                            animate={{ height: `${aiHeight}%` }}
-                            transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.2 }}
-                        />
-                        <div className={styles.blurSegment} />
-                    </div>
-                </div>
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 3, ease: "easeInOut" }}
+                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 50 }}
+                        >
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/ai-winner.png`}
+                                alt="AI Winner"
+                                fill
+                                className={styles.faceImage}
+                                priority
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </motion.div>
         </div>
     );
