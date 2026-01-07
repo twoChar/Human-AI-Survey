@@ -6,6 +6,7 @@ import styles from './SurveyOptions.module.css';
 interface Question {
     id: number;
     text: string;
+    correct?: 'human' | 'ai';
 }
 
 interface SurveyOptionsProps {
@@ -38,7 +39,7 @@ export default function SurveyOptions({ question, onAnswer, direction, userAnswe
         if (!userAnswer) return {}; // Default state
 
         const isSelected = userAnswer === type;
-        const isCorrect = (question as any).correct === type;
+        const isCorrect = question.correct === type;
 
         // If this button is the Correct one
         if (isCorrect) {

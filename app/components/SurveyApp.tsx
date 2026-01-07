@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, RotateCcw, Check } from 'lucide-react';
 import Hero from './Hero';
@@ -9,7 +9,7 @@ import Result from './Result';
 import styles from './SurveyApp.module.css';
 
 
-const QUESTIONS = [
+const QUESTIONS: { id: number; text: string; correct: 'human' | 'ai'; explanation: string }[] = [
     {
         id: 1,
         text: "Who will identify and mitigate business risks from chip shortages, export bans?",
@@ -108,21 +108,26 @@ export default function SurveyApp() {
         }, 2000);
     };
 
-    const handleAnswer = (choice: 'human' | 'ai') => {
+    const handleAnswer = useCallback((choice: 'human' | 'ai') => {
         setDirection(1);
-        const newAnswers = [...answers];
-        newAnswers[step] = choice;
-        setAnswers(newAnswers);
+        setAnswers(prevAnswers => {
+            const newAnswers = [...prevAnswers];
+            newAnswers[step] = choice;
+            return newAnswers;
+        });
 
-        // Auto-advance
+        // Auto-advance - we need to see the latest step here, but step is in dependency if we use it directly.
+        // using function form for setStep is better, but the condition `if (step < QUESTIONS.length)` uses current step.
+        // Actually, let's just allow `handleAnswer` to depend on `step`.
+
         if (step < QUESTIONS.length) {
             setTimeout(() => {
                 setStep(prev => Math.min(prev + 1, QUESTIONS.length));
             }, 1500);
         }
-    };
+    }, [step]);
 
-    const handleManualNav = (dir: 'next' | 'prev') => {
+    const handleManualNav = useCallback((dir: 'next' | 'prev') => {
         if (dir === 'prev') {
             setDirection(-1);
             setStep(prev => Math.max(0, prev - 1));
@@ -131,12 +136,9 @@ export default function SurveyApp() {
             // Allow next only if current step is answered or it's not the end
             setStep(prev => Math.min(QUESTIONS.length, prev + 1));
         }
-    };
+    }, []);
 
-    const jumpToStep = (index: number) => {
-        setDirection(index > step ? 1 : -1);
-        setStep(index);
-    };
+
 
     const restart = () => {
         setAnswers(Array(QUESTIONS.length).fill(null));
@@ -173,8 +175,7 @@ export default function SurveyApp() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [step, answers, isResult]);
-    const canGoNext = step < QUESTIONS.length && (step < QUESTIONS.length - 1 || answers[step]);
+    }, [isResult, handleManualNav, handleAnswer]);
 
     return (
         <div className={styles.container}>
