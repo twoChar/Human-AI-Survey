@@ -35,3 +35,32 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # Human-AI-Survey
+
+## Deployment
+
+This project is configured to be deployed to **GitHub Pages**.
+
+### Prerequisite
+
+Ensure you have access to the repository and have installed dependencies:
+
+```bash
+npm install
+```
+
+### Deploying Manually
+
+You can deploy the application by running:
+
+```bash
+npm run deploy
+```
+
+This command will:
+1. Build the application (`next build`).
+2. Generate the static export in the `out/` directory.
+3. Push the contents of `out/` to the `gh-pages` branch.
+
+### GitHub Actions
+
+A GitHub Actions workflow is also included in `.github/workflows/nextjs.yml`, which will attempt to build and deploy on every push to `main`. Ensure GitHub Pages is enabled in your repository settings (Settings > Pages) and set to source from "GitHub Actions".

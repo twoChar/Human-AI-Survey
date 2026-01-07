@@ -2,6 +2,7 @@
   "name": "human-ai-survey",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://twochar.github.io/Human-AI-Survey",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
