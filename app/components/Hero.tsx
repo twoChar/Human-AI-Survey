@@ -104,7 +104,7 @@ export default function Hero({ humanScore, aiScore, total, winner }: HeroProps) 
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 50 }}
                         >
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/human-winner.png`}
+                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/humanpic.png`}
                                 alt="Human Winner"
                                 fill
                                 className={styles.faceImage}
@@ -121,7 +121,7 @@ export default function Hero({ humanScore, aiScore, total, winner }: HeroProps) 
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 50 }}
                         >
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/ai-winner.png`}
+                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/AIpic.png`}
                                 alt="AI Winner"
                                 fill
                                 className={styles.faceImage}
